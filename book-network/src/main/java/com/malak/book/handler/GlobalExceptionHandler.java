@@ -9,6 +9,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.malak.book.exception.ActivationTokenException;
+import com.malak.book.exception.OperationNotPermittedException;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -105,6 +108,27 @@ public class GlobalExceptionHandler {
                 .body(
                         ExceptionResponse.builder()
                                 .businessErrorDescription("Internal error, please contact the admin")
+                                .error(exp.getMessage())
+                                .build()
+                );
+    }
+    @ExceptionHandler(ActivationTokenException.class)
+    public ResponseEntity<ExceptionResponse> handleException(ActivationTokenException exp) {
+        return ResponseEntity
+                .status(BAD_REQUEST)
+                .body(
+                        ExceptionResponse.builder()
+                                .error(exp.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(OperationNotPermittedException.class)
+    public ResponseEntity<ExceptionResponse> handleException(OperationNotPermittedException exp) {
+        return ResponseEntity
+                .status(BAD_REQUEST)
+                .body(
+                        ExceptionResponse.builder()
                                 .error(exp.getMessage())
                                 .build()
                 );
