@@ -60,7 +60,7 @@ public class GlobalExceptionHandler {
                         ExceptionResponse.builder()
                                 .businessErrorCode(BAD_CREDENTIALS.getCode())
                                 .businessErrorDescription(BAD_CREDENTIALS.getDescription())
-                                .error("Login and / or Password is incorrect")
+                                .error(BAD_CREDENTIALS.getDescription())
                                 .build()
                 );
     }
@@ -77,9 +77,9 @@ public class GlobalExceptionHandler {
                 );
     }
 
-    // user send invalid data ,when register ?? 
+    // user send invalid data ,when authenticate !! ?? 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ExceptionResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exp) {
+    public ResponseEntity<ExceptionResponse> handleException(MethodArgumentNotValidException exp) {
        // var errors = new HashMap<String, String>();
        Set<String> errors = new HashSet<>();
         exp.getBindingResult().getAllErrors()
