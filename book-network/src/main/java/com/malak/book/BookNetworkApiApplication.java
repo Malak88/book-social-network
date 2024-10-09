@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import com.malak.book.role.Role;
 import com.malak.book.role.RoleRepository;
 
-@EnableJpaAuditing
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @SpringBootApplication
 public class BookNetworkApiApplication {
 
